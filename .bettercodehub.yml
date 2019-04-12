@@ -1,0 +1,4 @@
+exclude:
+  - /server/.*         # third-party code
+  - .*/.*\.conf\.js    # configuration
+  - .*/.*\.config\.js  # configuration
