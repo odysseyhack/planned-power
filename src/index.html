@@ -1,25 +1,25 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Supply Chain dApp</title>
-  <base id="bh" href="/">
-  <script>
-    // To work with VMware Blockchain dApp deployments
-    (function() {
-      const baseEl = document.getElementById('bh');
-      const pathArray = window.location.pathname.split('/');
-      if (pathArray[1] === 'blockchains') {
-        const baseHref = pathArray.splice(0, 5).join('/') + '/';
-        baseEl.setAttribute('href', baseHref);
-      }
-    })();
-  </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <meta charset="utf-8" />
+  <title>Ionic App</title>
+
+  <base href="/" />
+
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 </head>
+
 <body>
-  <vmw-sc-root></vmw-sc-root>
+  <app-root></app-root>
 </body>
+
 </html>

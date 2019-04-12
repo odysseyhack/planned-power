@@ -1,9 +1,3 @@
-/*
- * Copyright 2019 VMware, all rights reserved.
- * This software is released under MIT license.
- * The full license information can be found in LICENSE in the root directory of this project.
- */
-
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
@@ -23,7 +17,7 @@ module.exports = function (config) {
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, '../coverage'),
-      reports: ['html', 'lcovonly'],
+      reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
     reporters: ['progress', 'kjhtml'],

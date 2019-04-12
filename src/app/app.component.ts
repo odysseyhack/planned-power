@@ -1,25 +1,26 @@
-/*
- * Copyright 2019 VMware, all rights reserved.
- * This software is released under MIT license.
- * The full license information can be found in LICENSE in the root directory of this project.
- */
-
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+
+import { Platform } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
-  selector: 'vmw-sc-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  templateUrl: 'app.component.html'
 })
 export class AppComponent {
-
-  constructor(translate: TranslateService) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
-
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
+  constructor(
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar
+  ) {
+    this.initializeApp();
   }
 
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+    });
+  }
 }
