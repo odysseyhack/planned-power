@@ -1,0 +1,42 @@
+/*
+ * Copyright 2019 VMware, all rights reserved.
+ * This software is released under MIT license.
+ * The full license information can be found in LICENSE in the root directory of this project.
+ */
+
+/* You can add global styles to this file, and also import other style files */
+
+
+@import "../node_modules/@clr/ui/src/utils/dependencies.clarity";
+
+
+$color-pending: $clr-yellow;
+$color-success: $clr-green-dark-midtone;
+
+$roles:(
+  auditor: $clr-action-blue-light-midtone,
+  farmer: #00AB9A,
+  distributor: $clr-red-light-midtone,
+  storage: $clr-yellow-light-midtone,
+  super_market: $clr-action-purple-light-midtone
+);
+
+@each $role, $color in $roles {
+  .header-#{$role} {
+    background-color: $color;
+    color: white;
+  }
+}
+
+.login {
+  .clr-control-label {
+    display: none;
+  }
+  .clr-control-container.clr-col-md-10.clr-col-12 {
+    max-width: 100% !important;
+    width: 100% !important;
+    flex: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
