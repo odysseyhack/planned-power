@@ -12,7 +12,7 @@
     "copy-contract-build": "rm -rf ./src/assets/contracts && cp -r ./build/contracts ./src/assets/contracts",
     "test": "npm run copy-contract-build && ng test  --watch=false",
     "test:travis": "npm run copy-contract-build && ng test --watch=false",
-    "truffle:test:ganache": "truffle test ./test/Orders.js && truffle test ./test/Order.js && truffle test ./test/Upgrade.js",
+    "truffle:test:ganache": "truffle test ./test/PowerPromise.js",
     "truffle:test:vmware": "truffle test ./test/Orders.js --network=vmware && truffle test ./test/Order.js --network=vmware && truffle test ./test/Upgrade.js --network=vmware",
     "lint": "ng lint",
     "e2e": "ng e2e",
