@@ -4,6 +4,11 @@
  * The full license information can be found in LICENSE in the root directory of this project.
  */
 
+var PowerPromise = artifacts.require("./PowerPromise.sol");
+
+
 module.exports = function(deployer, network, accounts) {
   let proxyContract;
+
+  deployer.deploy(PowerPromise)
 };
