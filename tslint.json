@@ -1,13 +1,7 @@
 {
   "rulesDirectory": [
-    "node_modules/codelyzer"
+    "codelyzer"
   ],
-  "linterOptions": {
-    "exclude": [
-      "*.json",
-      "**/*.json"
-    ]
-  },
   "rules": {
     "arrow-return-shorthand": true,
     "callable-types": true,
@@ -67,13 +61,12 @@
     "no-eval": true,
     "no-inferrable-types": [
       true,
-      "ignore-params",
-      "ignore-properties"
+      "ignore-params"
     ],
     "no-misused-new": true,
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
-    "no-shadowed-variable": false,
+    "no-shadowed-variable": true,
     "no-string-literal": false,
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
@@ -132,7 +125,6 @@
     "no-output-rename": true,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
-    "component-class-suffix": true,
     "directive-class-suffix": true
   }
 }
