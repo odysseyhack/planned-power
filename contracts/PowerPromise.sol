@@ -13,11 +13,16 @@ contract PowerPromise {
     string postcode;
   }
 
-  event NewPowerPromise();
+  event NewPowerPromise(PowerUse);
 
-  function promise(uint payload, uint use, string from_date, string to_date, string postcode) {
-    usages.push(PowerUse(payload, use, from_date, to_date, postcode));
-    emit NewPowerPromise();
+  function promise(
+    uint payload, uint use, string from_date, string to_date, string postcode
+  ) {
+    uint length = usages.push(PowerUse(payload, use, from_date, to_date, postcode));
+    emit NewPowerPromise(usages[length-1]);
   }
 
+  function retrieve() returns (PowerUse[]) {
+    return usages;
+  }
 }
