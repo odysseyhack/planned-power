@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { from, Observable, ReplaySubject, throwError } from 'rxjs';
-import { catchError, flatMap, map } from 'rxjs/operators';
-import { Web3Service } from './web3.service';
-import { PowerUse } from './power-use';
-import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import {Injectable} from '@angular/core';
+import {from, Observable, ReplaySubject, throwError} from 'rxjs';
+import {catchError, flatMap, map} from 'rxjs/operators';
+import {Web3Service} from './web3.service';
+import {PowerUse} from './power-use';
+import {forkJoin} from 'rxjs/internal/observable/forkJoin';
 
 const abi = require('../../../assets/contracts/PowerPromise.json');
 declare let require: any;
@@ -21,8 +21,11 @@ export class PowerPromiseService {
   }
 
   async init(): Promise<void> {
+    console.log('init powerpromiseservice');
     const contract = await this.web3Service.artifactsToContract(abi);
+    console.log('after await artifacts');
     const deployed = await contract.deployed();
+    console.log('after deployed');
     this.powerPromiseContract.next(deployed);
     this.powerPromiseContract.complete();
   }

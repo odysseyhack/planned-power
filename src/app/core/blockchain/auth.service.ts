@@ -4,16 +4,16 @@
  * The full license information can be found in LICENSE in the root directory of this project.
  */
 
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 import * as HttpHeaderProvider from 'httpheaderprovider';
 import * as Web3 from 'web3';
 
-import { Observable, of, bindCallback } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {bindCallback, Observable} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -26,26 +26,34 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   loginServerSide(username: string, password: string): Observable<any> {
+    console.log('login server side');
     return this.http.post('/api/authenticate',
       { username: username, password: password });
   }
 
   loginLocally(username?: string, password?: string): Observable<boolean> {
+    console.log('login locally');
     let authKey;
     if (!username) {
       authKey = localStorage.getItem('BA');
     }  else {
       authKey = 'Basic ' + btoa(username + ':' + password);
     }
-    const provider = this.getVmwareBlockChainProvider(authKey);
+    console.log('get vmware block chain provider');
+    console.log('using path ' + environment.path);
+    console.log('using authkey ' + authKey);
+    const provider = this.getVmwareBlockChainProvider(environment.path, authKey);
+    console.log('got vmware block chain provierd');
     const web3 = new Web3();
     web3.setProvider(provider);
 
     const getBlock = bindCallback(web3.eth.getBlock);
 
+    console.log('return getBlock');
     // @ts-ignore
     return getBlock(0)
       .pipe(
+        tap(console.log),
         map(res => {
           localStorage.setItem('BA', authKey);
           if (res[0]) {
@@ -55,7 +63,8 @@ export class AuthService {
 
             return true;
           }
-        })
+        }),
+        tap(console.log)
       );
   }
 
@@ -68,15 +77,17 @@ export class AuthService {
     return this.loginLocally().toPromise();
   }
 
-  getVmwareBlockChainProvider(authKey?: string): HttpHeaderProvider {
+  getVmwareBlockChainProvider(hrefToBlockChain: string, authKey?: string): HttpHeaderProvider {
     if (!authKey) {
       authKey = localStorage.getItem('BA');
     }
+    console.log('authkey' + authKey);
     const header = {
       'authorization': authKey,
       'X-Requested-With': 'XMLHttpRequest' // Suppress basic auth pop up
     };
-    return new HttpHeaderProvider(environment.path, header);
+    console.log('return new httpheaderprovider');
+    return new HttpHeaderProvider(hrefToBlockChain, header);
   }
 
 }
