@@ -14,7 +14,6 @@ export class Web3Service {
   private readonly address: string = environment.path;
   private accounts: string[];
   private sendDefaults = { from: undefined, 'gas': '4400000' };
-  private servicePromise: Promise<any>;
 
   private vmwareAddresses = {
     from: '0x262c0d7ab5ffd4ede2199f6ea793f819e1abb019',
@@ -54,33 +53,13 @@ export class Web3Service {
   private ganache(): Web3 {
     const baseHref = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
     const href = environment.useProxy ? `${baseHref}/${this.address}` : this.address;
-    console.info(`connecting to ${href}`);
     return new Web3(new Web3.providers.HttpProvider(href));
-  }
-
-  private getAccounts(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      return this.web3.eth.getAccounts(this.callbackToResolve(resolve, reject));
-    }).then(async accounts => {
-      // @ts-ignore
-    });
-
   }
 
   private setAccounts() {
     this.accounts = [ this.vmwareAddresses.from ];
     this.sendDefaults.from = this.from;
     this.web3.eth.defaultAccount = this.from;
-  }
-
-  private callbackToResolve(resolve, reject) {
-    return function (error, value) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(value);
-      }
-    };
   }
 
   public async artifactsToContract(artifacts) {

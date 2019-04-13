@@ -20,15 +20,8 @@ import { environment } from '../../../environments/environment';
 })
 export class AuthService {
   isLoggedIn = false;
-  // store the URL so we can redirect after logging in
-  redirectUrl: string;
 
-  constructor(private http: HttpClient) { }
-
-  loginServerSide(username: string, password: string): Observable<any> {
-    return this.http.post('/api/authenticate',
-      { username: username, password: password });
-  }
+  constructor() { }
 
   loginLocally(username?: string, password?: string): Observable<boolean> {
     let authKey;
@@ -57,15 +50,6 @@ export class AuthService {
           }
         })
       );
-  }
-
-  logout(): void {
-    this.isLoggedIn = false;
-    localStorage.removeItem('BA');
-  }
-
-  loginCheck(): Promise<boolean> {
-    return this.loginLocally().toPromise();
   }
 
   getVmwareBlockChainProvider(authKey?: string): HttpHeaderProvider {
