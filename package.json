@@ -14,7 +14,7 @@
     "test": "npm run copy-contract-build && ng test  --watch=false",
     "test:travis": "npm run copy-contract-build && ng test --watch=false",
     "truffle:test:ganache": "truffle test ./test/PowerPromise.js",
-    "truffle:test:vmware": "truffle test ./test/Orders.js --network=vmware && truffle test ./test/Order.js --network=vmware && truffle test ./test/Upgrade.js --network=vmware",
+    "truffle:test:vmware": "truffle test ./test/PowerPromise.js --network=vmware",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "node patch.js"
@@ -37,6 +37,7 @@
     "@ionic/angular": "^4.1.0",
     "@ionic/lab": "^1.0.24",
     "core-js": "^2.5.4",
+    "httpheaderprovider": "^0.3.4",
     "rxjs": "~6.3.3",
     "truffle-contract": "^4.0.11",
     "web3": "0.20.7",

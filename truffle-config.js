@@ -63,7 +63,7 @@ module.exports = {
       network_id: "*",
       quiet: true,
       provider: () => new Web3.providers.HttpProvider(
-        "http://<username>:<password>@<url>"
+        "https://admin@blockchain.local:T3sting!@mgmt.blockchain.vmware.com/blockchains/077d11b9-7147-4022-9af8-b937574d3cd5/api/concord/eth"
       )
     },
     // Another network with more advanced options...
