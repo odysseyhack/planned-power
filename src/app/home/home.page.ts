@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { IonRange, IonSelect, IonSlides } from '@ionic/angular';
-import { PowerPromiseService } from '../core/blockchain/power-promise.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { forkJoin } from 'rxjs';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -47,7 +46,7 @@ export class HomePage implements AfterViewInit {
     begincapacity: new FormControl(80)
   });
 
-  constructor(private powerPromiseService: PowerPromiseService) {
+  constructor(private homeService: HomeService) {
   }
 
 
@@ -79,44 +78,19 @@ export class HomePage implements AfterViewInit {
   completeWizard() {
     if (this.promiseForm.valid) {
       this.wizardCompleted = true;
-
-      const promise = this.promiseForm.value;
-
-      const promises = [ '15-04-2019', '16-04-2019', '17-04-2019', '18-04-2019', '19-04-2019', '20-04-2019', '21-04-2019' ]
-        .map(
-          (date, index) => {
-            if (this.shouldOmitFromBlockhain(index)) {
-              return;
-            }
-
-            return this.sendToBlockchain(promise, date);
-          }
-        ).filter(Boolean);
-
-      forkJoin(promises).subscribe(() => { });
+      this.homeService.send(
+        this.promiseForm.value,
+        this.hourRange.value,
+        {
+          monday: this.mondayStatus,
+          tuesday: this.tuesdayStatus,
+          wednesday: this.wednesdayStatus,
+          thursday: this.thursdayStatus,
+          friday: this.fridayStatus,
+          saturday: this.saturdayStatus,
+          sunday: this.sundayStatus
+        }
+      );
     }
-  }
-
-  private sendToBlockchain(promise, date) {
-    return this.powerPromiseService.promise({
-      region: promise.region,
-      startday: date,
-      starttime: `${this.hourRange.value[ 'lower' ]}:00`,
-      endday: date,
-      endtime: `${this.hourRange.value[ 'upper' ]}:00`,
-      fullcapicity: 100,
-      minimalcapacity: 20,
-      begincapacity: 80
-    });
-  }
-
-  private shouldOmitFromBlockhain(index) {
-    return index === 0 && !this.mondayStatus ||
-      index === 1 && !this.tuesdayStatus ||
-      index === 2 && !this.wednesdayStatus ||
-      index === 3 && !this.thursdayStatus ||
-      index === 4 && !this.fridayStatus ||
-      index === 5 && !this.saturdayStatus ||
-      index === 6 && !this.sundayStatus;
   }
 }
