@@ -7,6 +7,7 @@
 export const environment = {
   production: false,
   blockchainType: 'ganache',
+  useProxy: true,
   path: 'ganache',
   network: '5777',
 };

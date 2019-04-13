@@ -1,5 +1,7 @@
 {
   "name": "planned-power",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

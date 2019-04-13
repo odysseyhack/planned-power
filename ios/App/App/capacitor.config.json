@@ -1,0 +1,6 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "planned-power",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
