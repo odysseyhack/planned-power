@@ -2,12 +2,9 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false,
-  blockchainType: 'ganache',
-  path: 'http://localhost:4200/ganache',
-  network: '5777',
-};
+import {environment as ganacheEnv} from './environment.ganache-dev';
+
+export const environment = ganacheEnv;
 
 /*
  * For easier debugging in development mode, you can import the following file

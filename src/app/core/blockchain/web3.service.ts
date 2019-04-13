@@ -18,7 +18,6 @@ export class Web3Service {
     if (environment.blockchainType === 'metamask' && window['web3']) {
       this.web3 = this.metaMask();
     } else if (environment.blockchainType === 'vmware') {
-      // this.web3 = this.vmwareBlockchain();
       throw new Error('not implemented yet');
     } else {
       this.web3 = this.ganache();
@@ -30,10 +29,6 @@ export class Web3Service {
   private metaMask(): Web3 {
     return new Web3(window['web3'].currentProvider);
   }
-
-  // private vmwareBlockchain(): Web3 {
-  //   return new Web3(this.authService.getVmwareBlockChainProvider());
-  // }
 
   private ganache(): Web3 {
     return new Web3(new Web3.providers.HttpProvider(this.address));

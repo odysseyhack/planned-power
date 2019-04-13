@@ -3,8 +3,9 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import {PowerPromiseService} from './core/blockchain/power-promise.service';
-import {flatMap} from 'rxjs/operators';
+import { PowerPromiseService } from './core/blockchain/power-promise.service';
+import { flatMap } from 'rxjs/operators';
+import { PowerUse } from './core/blockchain/power-use';
 
 @Component({
   selector: 'app-root',
@@ -18,17 +19,17 @@ export class AppComponent {
     private powerPromiseService: PowerPromiseService
   ) {
     this.initializeApp();
-    this.powerPromiseService.promise(
-      'Beijum',
-      '01-01-1010',
-      '11:30, ',
-      '02-02-2020',
-      '23:34',
-      100,
-      20,
-      80
-      ).pipe(
-        flatMap(() => this.powerPromiseService.retrieve())
+    this.powerPromiseService.promise({
+      region: 'Beijum',
+      startday: '01-01-1010',
+      starttime: '11:30, ',
+      endday: '02-02-2020',
+      endtime: '23:34',
+      fullcapicity: 100,
+      minimalcapacity: 20,
+      begincapacity: 80
+    } as PowerUse).pipe(
+      flatMap(() => this.powerPromiseService.retrieve())
     ).subscribe(console.log);
   }
 
