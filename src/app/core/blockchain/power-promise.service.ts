@@ -5,7 +5,6 @@ import {Web3Service} from './web3.service';
 
 const abi = require('../../../assets/contracts/PowerPromise.json');
 declare let require: any;
-declare const web3;
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +27,10 @@ export class PowerPromiseService {
   promise(payload: number, use: number, from_date: string, to_date: string, postcode: string): Observable<any> {
     return this.powerPromise.pipe(
       flatMap(contract => from(
-        contract.promise.sendTransaction(payload, use, from_date, to_date, postcode, {from: web3.eth.defaultAccount}))),
+        contract.promise(payload, use, from_date, to_date, postcode, this.web3Service.from())
+        // contract.promise(payload, use, from_date, to_date, postcode, {from: web3.eth.defaultAccount})
+        // contract.methods.promise(payload, use, from_date, to_date, postcode).send({from: web3.eth.defaultAccount})
+      )),
       tap(console.log)
     );
   }

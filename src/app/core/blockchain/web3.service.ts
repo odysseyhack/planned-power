@@ -1,11 +1,7 @@
 import {Injectable} from '@angular/core';
 import contract from 'truffle-contract';
-import {Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import Web3 from 'web3';
-
-declare let require: any;
-
 
 declare let window: any;
 
@@ -14,7 +10,6 @@ export class Web3Service {
 
   private readonly web3: any;
   private readonly address: string = environment.path;
-  private from: string;
   private accounts: string[];
   private sendDefaults = { from: undefined, 'gas': '4400000' };
   private servicePromise: Promise<any>;
@@ -50,7 +45,6 @@ export class Web3Service {
     }).then(async accounts => {
       // @ts-ignore
       this.accounts = accounts;
-      this.from = this.accounts[1];
       this.sendDefaults.from = this.from;
       this.web3.eth.defaultAccount = this.from;
     });
@@ -78,5 +72,9 @@ export class Web3Service {
     contractAbstraction.setProvider(this.web3.currentProvider);
     return contractAbstraction;
 
+  }
+
+  public from() {
+    return {from: this.accounts[0]};
   }
 }
