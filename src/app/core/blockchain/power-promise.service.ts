@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {from, Observable, pipe, ReplaySubject} from 'rxjs';
 import {flatMap, tap} from 'rxjs/operators';
 import {Web3Service} from './web3.service';
+import {PowerUse} from './power-use';
 
 const abi = require('../../../assets/contracts/PowerPromise.json');
 declare let require: any;
@@ -24,14 +25,33 @@ export class PowerPromiseService {
     this.powerPromise.complete();
   }
 
-  promise(payload: number, use: number, from_date: string, to_date: string, postcode: string): Observable<any> {
+  promise(
+    region          : string,
+    startday        : string,
+    starttime       : string,
+    endday          : string,
+    endtime         : string,
+    begincapacity   : number,
+    minimalcapacity : number,
+    fullcapicity    : number
+  ): Observable<any> {
     return this.powerPromise.pipe(
       flatMap(contract => from(
-        contract.promise(payload, use, from_date, to_date, postcode, this.web3Service.from())
-        // contract.promise(payload, use, from_date, to_date, postcode, {from: web3.eth.defaultAccount})
-        // contract.methods.promise(payload, use, from_date, to_date, postcode).send({from: web3.eth.defaultAccount})
+        contract.promise(region, startday, starttime, endday, endtime, begincapacity, minimalcapacity, fullcapicity, this.web3Service.from())
       )),
       tap(console.log)
     );
   }
+
+  retrieve(): Observable<PowerUse[]> {
+    return this.powerPromise.pipe(
+      flatMap(contract => from(
+        contract.retrieve(this.web3Service.from())
+      )),
+      tap(console.log)
+    );
+  }
+
+
+
 }
