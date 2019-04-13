@@ -162,6 +162,10 @@ h1 {
 	text-decoration: underline;
 }
 
+ion-item {
+  margin-bottom: 25px;
+}
+
 .nav {
 	position: absolute;
 	bottom: 150px;
@@ -175,7 +179,7 @@ h1 {
 
 .wizard-completed {
   opacity: 0;
-  animation: fade-in 600ms ease-in 1 forwards;
+  animation: fade-in 300ms ease-in 1 forwards;
 	img {
 		position: absolute;
 		display: inline;
