@@ -2,9 +2,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { IonRange, IonSelect, IonSlides } from '@ionic/angular';
 import { PowerPromiseService } from '../core/blockchain/power-promise.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { flatMap } from 'rxjs/operators';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { forkJoin, throwError } from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +37,7 @@ export class HomePage implements AfterViewInit {
   };
 
   promiseForm = new FormGroup({
-    region: new FormControl(null, [Validators.required]),
+    region: new FormControl(null, [ Validators.required ]),
     startday: new FormControl('01-01-2019'),
     starttime: new FormControl('11:30'),
     endday: new FormControl('02-02-2019'),
@@ -87,34 +85,38 @@ export class HomePage implements AfterViewInit {
       const promises = [ '15-04-2019', '16-04-2019', '17-04-2019', '18-04-2019', '19-04-2019', '20-04-2019', '21-04-2019' ]
         .map(
           (date, index) => {
-            if (
-              index === 0 && !this.mondayStatus ||
-              index === 1 && !this.tuesdayStatus ||
-              index === 2 && !this.wednesdayStatus ||
-              index === 3 && !this.thursdayStatus ||
-              index === 4 && !this.fridayStatus ||
-              index === 5 && !this.saturdayStatus ||
-              index === 6 && !this.sundayStatus
-            ) {
+            if (this.shouldOmitFromBlockhain(index)) {
               return;
             }
 
-            return this.powerPromiseService.promise({
-              region: promise.region,
-              startday: date,
-              starttime: `${this.hourRange.value[ 'lower' ]}:00`,
-              endday: date,
-              endtime: `${this.hourRange.value[ 'upper' ]}:00`,
-              fullcapicity: 100,
-              minimalcapacity: 20,
-              begincapacity: 80
-            });
+            return this.sendToBlockchain(promise, date);
           }
         ).filter(Boolean);
 
-      forkJoin(promises)
-        .subscribe(() => {});
+      forkJoin(promises).subscribe(() => { });
     }
   }
 
+  private sendToBlockchain(promise, date) {
+    return this.powerPromiseService.promise({
+      region: promise.region,
+      startday: date,
+      starttime: `${this.hourRange.value[ 'lower' ]}:00`,
+      endday: date,
+      endtime: `${this.hourRange.value[ 'upper' ]}:00`,
+      fullcapicity: 100,
+      minimalcapacity: 20,
+      begincapacity: 80
+    });
+  }
+
+  private shouldOmitFromBlockhain(index) {
+    return index === 0 && !this.mondayStatus ||
+      index === 1 && !this.tuesdayStatus ||
+      index === 2 && !this.wednesdayStatus ||
+      index === 3 && !this.thursdayStatus ||
+      index === 4 && !this.fridayStatus ||
+      index === 5 && !this.saturdayStatus ||
+      index === 6 && !this.sundayStatus;
+  }
 }
