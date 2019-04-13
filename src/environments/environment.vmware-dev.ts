@@ -9,4 +9,5 @@ export const environment = {
   blockchainType: 'vmware',
   path: 'vmware',
   network: '5000',
+  useProxy: true
 };

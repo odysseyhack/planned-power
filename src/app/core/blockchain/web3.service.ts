@@ -8,7 +8,7 @@ declare let window: any;
 @Injectable({providedIn: 'root'})
 export class Web3Service {
 
-  private readonly web3: any;
+  private web3: any;
   private readonly address: string = environment.path;
   private accounts: string[];
   private sendDefaults = { from: undefined, 'gas': '4400000' };
@@ -75,4 +75,5 @@ export class Web3Service {
   public from() {
     return {from: this.accounts[0]};
   }
+
 }

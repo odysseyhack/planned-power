@@ -29,7 +29,7 @@ contract PowerPromise {
     uint8 fullcapicity
   ) {
     uint length = usages.push(PowerUse(region, startday, starttime, endday, endtime, begincapacity, minimalcapacity, fullcapicity));
-    PowerUse usage = usages[length - 1];
+    PowerUse storage usage = usages[length - 1];
 
     emit NewPowerPromise(
       usage.region,
@@ -46,9 +46,21 @@ contract PowerPromise {
   function getLength()
   public
   view
-  returns(uint)
+  returns (uint)
   {
     return (usages.length);
+  }
+
+  function getPowerPromise(uint index) public view returns (string, string, string, string, string, uint8, uint8, uint8) {
+    PowerUse memory use = usages[index];
+    return (
+    use.region,
+    use.startday, use.starttime,
+    use.endday, use.endtime,
+    use.begincapacity,
+    use.minimalcapacity,
+    use.fullcapicity
+    );
   }
 
 }
