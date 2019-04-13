@@ -10,6 +10,51 @@
   <div class="ion-padding">
     The world is your oyster.
     <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+
+    <form [formGroup]="promiseForm">
+
+      <ion-item>
+        <ion-label>Region</ion-label>
+        <ion-input formControlName="region"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Startday</ion-label>
+        <ion-input formControlName="startday"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Start time</ion-label>
+        <ion-input formControlName="starttime"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>End day</ion-label>
+        <ion-input formControlName="endday"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>End time</ion-label>
+        <ion-input formControlName="endtime"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Full capicity</ion-label>
+        <ion-input formControlName="fullcapicity"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Minimal capicity</ion-label>
+        <ion-input formControlName="minimalcapacity"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Begin capacity</ion-label>
+        <ion-input formControlName="begincapacity"></ion-input>
+      </ion-item>
+
+    </form>
+
     <ion-button (click)="sendAndRetrieve()">Simulate!</ion-button>
     <ion-button (click)="retrieve()">Retrieve!</ion-button>
 
