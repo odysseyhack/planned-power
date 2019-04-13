@@ -1,17 +1,136 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="logo"></div>
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-    <ion-button (click)="sendAndRetrieve()">Simulate!</ion-button>
-    <ion-button (click)="retrieve()">Retrieve!</ion-button>
+<ion-slides [ngClass]="{hide: this.wizardCompleted}" pager="true" [options]="slideOpts" #slides>
+  <ion-slide>
+    <div class="wizard">
+      <div class="content">
+        <div class="oval car" [ngClass]="this.carSelector.value"></div>
+        <h1>We would like to connect to your car</h1>
+        <p *ngIf="!this.carSelector.value" (click)='onCarSelectButtonClick()' class="action-link">select your car</p>
 
-  </div>
-</ion-content>
+        {{this.carSelector.value}}
+
+        <ion-item class="hidden-selector">
+          <ion-label>select your car</ion-label>
+          <ion-select #carSelector okText="Okay" cancelText="Dismiss">
+            <ion-select-option value="BWM i3">BWM i3</ion-select-option>
+
+            <ion-select-option value="Hyundai Ioniq">Hyundai Ioniq</ion-select-option>
+
+            <ion-select-option value="Tesla Model 3">Tesla Model 3</ion-select-option>
+            <ion-select-option value="Tesla Model S">Tesla Model S</ion-select-option>
+            <ion-select-option value="Tesla Model X">Tesla Model X</ion-select-option>
+
+            <ion-select-option value="Nissan Leaf">Nissan Leaf</ion-select-option>
+
+            <ion-select-option value="Renault ZOE">Renault ZOE</ion-select-option>
+
+            <ion-select-option value="VW E-Golf">VW E-Golf</ion-select-option>
+            <ion-select-option value="VW E-Up!">VW E-Up!</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <div class="wizard">
+      <div class="content">
+        <div class="oval route"></div>
+        <h1>Do you have a daily driving routine?</h1>
+        <p (click)='this.slides.slideNext()' class="action-link">Add your route</p>
+      </div>
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <div class="wizard">
+      <h1>I'm driving</h1>
+
+      <div class="form-group">
+        <ion-item>
+          <ion-label position="floating">From</ion-label>
+          <ion-input #fromRoute></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">To</ion-label>
+          <ion-input #toRoute></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">On</ion-label>
+          <div class="weekday-selector">
+            <span [ngClass]="{'selected': this.mondayStatus}" (click)='onMondayClick()'>M</span>
+            <span [ngClass]="{'selected': this.tuesdayStatus}" (click)='onTuesdayClick()'>T</span>
+            <span [ngClass]="{'selected': this.wednesdayStatus}" (click)='onWednesdayClick()'>W</span>
+            <span [ngClass]="{'selected': this.thursdayStatus}" (click)='onThursdayClick()'>T</span>
+            <span [ngClass]="{'selected': this.fridayStatus}" (click)='onFridayClick()'>F</span>
+            <span [ngClass]="{'selected': this.saturdayStatus}" (click)='onSaturdayClick()'>S</span>
+            <span [ngClass]="{'selected': this.sundayStatus}" (click)='onSundayClick()'>S</span>
+          </div>
+        </ion-item>
+
+        <div class="ionRangeHour">
+          <ion-label class="departure" position="fixed">Departure</ion-label>
+          <ion-label class="arriving" position="fixed">Arriving home</ion-label>
+          <ion-item>
+            <ion-range #hourRange min="0" max="23" color="secondary" dual-knobs="true" [value]="{ lower: 8, upper: 18}">
+              <ion-label slot="start">{{this.hourRange.value.lower}}</ion-label>
+              <ion-label slot="end">{{this.hourRange.value.upper}}</ion-label>
+            </ion-range>
+          </ion-item>
+        </div>
+      </div>
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <div class="wizard" style="
+    top: 40px;
+">
+      <h1>Your driving profile</h1>
+      <p style="
+
+      font-size: 16px;
+      width: 289px;
+      margin: 20px auto;">
+        Based on your daily driving routine we’ve calculated a safe margin. Make sure you alter this to your pleasing.</p>
+
+      <div style="margin-top: 0px;margin-bottom: 20px;" class="oval driving-profile"></div>
+
+      <p style="
+        font-size: 16px;
+        width: 250px;
+        margin: 0 auto;">The energy you are delivering back to the grid</p>
+      <div class="savings" style="font-size: 14px; margin-top: 16px">
+        <span style="
+            margin-right: 10px;">
+            28kWh</span>
+        <i style="
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+        " class="leaf"></i>
+        <span style="
+        margin-left: 10px;">Saving 3 trees per month</span>
+      </div>
+    </div>
+  </ion-slide>
+</ion-slides>
+
+<button
+  *ngIf="!this.isSliderAtEnd && !this.wizardCompleted"
+  (click)='this.slides.slideNext()'
+  class="next"
+>NEXT</button>
+
+<button
+  *ngIf="this.isSliderAtEnd && !this.wizardCompleted"
+  (click)='this.completeWizard()'
+  class="next"
+>FINISH</button>
+
+<div class="wizard-completed" *ngIf="this.wizardCompleted">
+  <p (click)="findChargers()" *ngIf="this.showDashboard" style="width: 172px;margin-top: 95px;position: absolute;top: 0px;margin: 95px 102px;" class="action-link find-charger-link">Find nearby chargers</p>
+  <img class="map" [ngClass]="{'show': !this.showDashboard}"  src="../../assets/imgs/map.png">
+  <img class="dashboard car" [ngClass]="{'closed': !this.showDashboard}" src="../../assets/imgs/car-dashboard.png">
+  <img (click)="toDashboard()" class="dashboard card" [ngClass]="{'closed': !this.showDashboard}" src="../../assets/imgs/dashboard-card.png">
+</div>
