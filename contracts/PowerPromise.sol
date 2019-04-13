@@ -6,18 +6,33 @@ contract PowerPromise {
   PowerUse[] usages;
 
   struct PowerUse {
-    uint payload;
-    uint usage;
-    string from_date;
-    string to_date;
-    string postcode;
+    string region;
+    string startday;
+    string starttime;
+    string endday;
+    string endtime;
+    uint8 begincapacity;
+    uint8 minimalcapacity;
+    uint8 fullcapicity;
   }
 
-  event NewPowerPromise();
+  event NewPowerPromise(PowerUse);
 
-  function promise(uint payload, uint use, string from_date, string to_date, string postcode) {
-    usages.push(PowerUse(payload, use, from_date, to_date, postcode));
-    emit NewPowerPromise();
+  function promise(
+    string region,
+    string startday,
+    string starttime,
+    string endday,
+    string endtime,
+    uint8 begincapacity,
+    uint8 minimalcapacity,
+    uint8 fullcapicity
+  ) {
+    uint length = usages.push(PowerUse(region, startday, starttime, endday, endtime, begincapacity, minimalcapacity, fullcapicity));
+    emit NewPowerPromise(usages[length - 1]);
   }
 
+  function retrieve() view returns (PowerUse[]) {
+    return usages;
+  }
 }
