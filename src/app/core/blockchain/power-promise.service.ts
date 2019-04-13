@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {from, Observable, pipe, ReplaySubject} from 'rxjs';
-import {flatMap, tap} from 'rxjs/operators';
+import {from, Observable, ReplaySubject, throwError} from 'rxjs';
+import {catchError, flatMap} from 'rxjs/operators';
 import {Web3Service} from './web3.service';
 import {PowerUse} from './power-use';
 
@@ -39,7 +39,10 @@ export class PowerPromiseService {
       flatMap(contract => from(
         contract.promise(region, startday, starttime, endday, endtime, begincapacity, minimalcapacity, fullcapicity, this.web3Service.from())
       )),
-      tap(console.log)
+      catchError(err => {
+        console.error(err);
+        return throwError(err)
+      }),
     );
   }
 
@@ -48,7 +51,6 @@ export class PowerPromiseService {
       flatMap(contract => from(
         contract.retrieve(this.web3Service.from())
       )),
-      tap(console.log)
     );
   }
 
