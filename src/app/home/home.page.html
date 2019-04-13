@@ -1,10 +1,10 @@
 <div class="logo"></div>
 
-<ion-slides *ngIf="!this.wizardCompleted" pager="true" [options]="slideOpts" #slides>
+<ion-slides [ngClass]="{hide: this.wizardCompleted}" pager="true" [options]="slideOpts" #slides>
   <ion-slide>
     <div class="wizard">
       <div class="content">
-        <div class="oval car"></div>
+        <div class="oval car" [ngClass]="this.carSelector.value"></div>
         <h1>We would like to connect to your car</h1>
         <p *ngIf="!this.carSelector.value" (click)='onCarSelectButtonClick()' class="action-link">select your car</p>
 
@@ -129,8 +129,8 @@
 >FINISH</button>
 
 <div class="wizard-completed" *ngIf="this.wizardCompleted">
-  <p (click)="findChargers()" *ngIf="this.showDashboard" style="width: 172px;margin-top: 95px;" class="action-link find-charger-link">Find nearby chargers</p>
+  <p (click)="findChargers()" *ngIf="this.showDashboard" style="width: 172px;margin-top: 95px;position: absolute;top: 0px;margin: 95px 102px;" class="action-link find-charger-link">Find nearby chargers</p>
   <img class="map" [ngClass]="{'show': !this.showDashboard}"  src="../../assets/imgs/map.png">
   <img class="dashboard car" [ngClass]="{'closed': !this.showDashboard}" src="../../assets/imgs/car-dashboard.png">
-  <img class="dashboard card" [ngClass]="{'closed': !this.showDashboard}" src="../../assets/imgs/dashboard-card.png">
+  <img (click)="toDashboard()" class="dashboard card" [ngClass]="{'closed': !this.showDashboard}" src="../../assets/imgs/dashboard-card.png">
 </div>

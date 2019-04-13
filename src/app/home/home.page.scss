@@ -4,7 +4,10 @@
 }
 
 ion-slides {
-	height: 80vh;
+  height: 80vh;
+  &.hide {
+    display: none;
+  }
 }
 
 .hidden-selector {
@@ -116,8 +119,9 @@ ion-slides {
 	&.car {
 		background: url('../../assets/imgs/tesla.png');
 		background-size: 100%;
-		&.zoe {
-			// background: url('../../assets/imgs/zoe.png');
+		&.ZOE {
+			background: url('../../assets/imgs/zoe.png');
+      background-size: 100%;
 		}
 	}
 
@@ -170,6 +174,8 @@ h1 {
 }
 
 .wizard-completed {
+  opacity: 0;
+  animation: fade-in 600ms ease-in 1 forwards;
 	img {
 		position: absolute;
 		display: inline;
@@ -224,4 +230,8 @@ h1 {
 	to {
 		bottom: 105px;
 	}
+}
+@keyframes fade-in {
+  0% { opacity: 0 }
+  100% { opacity: 1}
 }

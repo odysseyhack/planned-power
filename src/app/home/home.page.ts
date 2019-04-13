@@ -47,10 +47,12 @@ export class HomePage implements AfterViewInit {
   isSliderAtEnd = false;
   sliderLength = 0;
 
-  wizardCompleted = true;
+  wizardCompleted = false;
   showDashboard = true;
+  back = false;
 
-  findChargers = () => this.showDashboard = !this.showDashboard;
+  findChargers = () => this.showDashboard = false;
+  toDashboard = () => this.showDashboard = true;
 
 	slideOpts = {
     effect: 'flip',
