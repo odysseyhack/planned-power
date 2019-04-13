@@ -1,11 +1,13 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import contract from 'truffle-contract';
-import {environment} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import Web3 from 'web3';
+import { AuthService } from './auth.service';
+import { Subject } from 'rxjs';
 
 declare let window: any;
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class Web3Service {
 
   private web3: any;
@@ -14,20 +16,39 @@ export class Web3Service {
   private sendDefaults = { from: undefined, 'gas': '4400000' };
   private servicePromise: Promise<any>;
 
-  constructor() {
-    if (environment.blockchainType === 'metamask' && window['web3']) {
+  private vmwareAddresses = {
+    from: '0x262c0d7ab5ffd4ede2199f6ea793f819e1abb019',
+    powerpromise: '0x69327263d1c49efd5e462035759b767ab6db5d82'
+  };
+  initialized = new Subject<boolean>();
+
+  constructor(private authService: AuthService) {
+    this.authService.loginLocally('admin@blockchain.local', 'T3sting!')
+      .subscribe(
+        () => this.initializeBlockChainBasedOnNetwork()
+      );
+  }
+
+  initializeBlockChainBasedOnNetwork() {
+    if (environment.blockchainType === 'metamask' && window[ 'web3' ]) {
       this.web3 = this.metaMask();
     } else if (environment.blockchainType === 'vmware') {
-      throw new Error('not implemented yet');
+      this.web3 = this.vmwareBlockchain();
     } else {
       this.web3 = this.ganache();
     }
 
-    this.servicePromise = this.getAccounts();
+    this.setAccounts();
+
+    this.initialized.next(true);
+  }
+
+  private vmwareBlockchain(): Web3 {
+    return new Web3(this.authService.getVmwareBlockChainProvider());
   }
 
   private metaMask(): Web3 {
-    return new Web3(window['web3'].currentProvider);
+    return new Web3(window[ 'web3' ].currentProvider);
   }
 
   private ganache(): Web3 {
@@ -42,15 +63,18 @@ export class Web3Service {
       return this.web3.eth.getAccounts(this.callbackToResolve(resolve, reject));
     }).then(async accounts => {
       // @ts-ignore
-      this.accounts = accounts;
-      this.sendDefaults.from = this.from;
-      this.web3.eth.defaultAccount = this.from;
     });
 
   }
 
+  private setAccounts() {
+    this.accounts = [ this.vmwareAddresses.from ];
+    this.sendDefaults.from = this.from;
+    this.web3.eth.defaultAccount = this.from;
+  }
+
   private callbackToResolve(resolve, reject) {
-    return function(error, value) {
+    return function (error, value) {
       if (error) {
         reject(error);
       } else {
@@ -73,7 +97,7 @@ export class Web3Service {
   }
 
   public from() {
-    return {from: this.accounts[0]};
+    return { from: this.accounts[ 0 ] };
   }
 
 }
