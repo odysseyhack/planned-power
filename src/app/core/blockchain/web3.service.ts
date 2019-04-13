@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
+import {Location} from '@angular/common';
 import contract from 'truffle-contract';
 import {environment} from '../../../environments/environment';
 import Web3 from 'web3';
+import {ActivatedRoute} from '@angular/router';
 
 declare let window: any;
 
@@ -36,7 +38,8 @@ export class Web3Service {
   // }
 
   private ganache(): Web3 {
-    return new Web3(new Web3.providers.HttpProvider(this.address));
+    const baseHref = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+    return new Web3(new Web3.providers.HttpProvider(`${baseHref}/${this.address}`));
   }
 
   private getAccounts(): Promise<any> {
