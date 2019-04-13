@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="32px" viewBox="0 0 24 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0.285050676%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#186E00" offset="0%"></stop>
+            <stop stop-color="#318300" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#219600" offset="0%"></stop>
+            <stop stop-color="#4DCE00" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Connect-EV-API" transform="translate(-176.000000, -11.000000)">
+            <g id="logo" transform="translate(176.000000, 11.000000)">
+                <path d="M15.5616438,0 L14.2520548,5.84109589 L12.7123288,12.7123288 L12.6739726,12.7123288 C10.6761644,12.7123288 9.05753425,11.0936986 9.05753425,9.09589041 C9.05753425,8.26191781 9.33917808,7.49479452 9.81260274,6.88328767 L9.97479452,6.68931507 L15.5616438,0 Z" id="Fill-1" fill="url(#linearGradient-1)"></path>
+                <path d="M14.2148055,24.3868493 L13.9232986,24.7342466 L13.9167233,24.7419178 L8.1096,31.6712329 L9.62412055,25.4586301 L9.62521644,25.4531507 L11.2876822,18.630137 L11.2986411,18.630137 C13.2964493,18.630137 14.9150795,20.2487671 14.9150795,22.2465753 C14.9150795,23.0476712 14.6553534,23.7873973 14.2148055,24.3868493 Z" id="Fill-3" fill="url(#linearGradient-2)"></path>
+                <path d="M14.2147945,24.3868822 C14.6553425,23.7873205 14.9150685,23.0475945 14.9150685,22.2466082 C14.9150685,20.2486904 13.2964384,18.6301699 11.2986301,18.6301699 L0,18.6301699 L9.81260274,6.88332055 C9.33917808,7.4948274 9.05753425,8.26195068 9.05753425,9.09592329 C9.05753425,11.0937315 10.6761644,12.7123616 12.6739726,12.7123616 L24,12.7123616 L14.2147945,24.3868822 Z" id="Fill-5" fill="#4DD100"></path>
+            </g>
+        </g>
+    </g>
+</svg>

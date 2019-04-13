@@ -1,14 +1,70 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="logo"></div>
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
-</ion-content>
+<ion-slides pager="true" [options]="slideOpts" #slides>
+  <ion-slide>
+    <div class="wizard">
+      <div class="content">
+        <div class="oval car"></div>
+        <h1>We would like to connect to your car</h1>
+        <p *ngIf="!this.carSelector.value" (click)='onCarSelectButtonClick()' class="action-link">select your car</p>
+
+        {{this.carSelector.value}}
+
+        <ion-item class="hidden-selector">
+          <ion-label>select your car</ion-label>
+          <ion-select #carSelector okText="Okay" cancelText="Dismiss">
+            <ion-select-option value="BWM i3">BWM i3</ion-select-option>
+
+            <ion-select-option value="Hyundai Ioniq">Hyundai Ioniq</ion-select-option>
+
+            <ion-select-option value="Tesla Model 3">Tesla Model 3</ion-select-option>
+            <ion-select-option value="Tesla Model S">Tesla Model S</ion-select-option>
+            <ion-select-option value="Tesla Model X">Tesla Model X</ion-select-option>
+
+            <ion-select-option value="Nissan Leaf">Nissan Leaf</ion-select-option>
+
+            <ion-select-option value="Renault ZOE">Renault ZOE</ion-select-option>
+
+            <ion-select-option value="VW E-Golf">VW E-Golf</ion-select-option>
+            <ion-select-option value="VW E-Up!">VW E-Up!</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <div class="wizard">
+      <div class="content">
+        <div class="oval route"></div>
+        <h1>Do you have a daily driving routine?</h1>
+        <p (click)='this.slides.slideNext()' class="action-link">Add your route</p>
+      </div>
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <h1>I'm driving</h1>
+
+    <div class="form-group">
+      <ion-item>
+        <ion-label position="floating">Floating Label</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="fixed">Fixed Label</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Stacked Label</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </div>
+  </ion-slide>
+</ion-slides>
+
+
+<button
+  (click)='this.slides.slideNext()'
+  class="next"
+>NEXT</button>

@@ -1,1 +1,122 @@
+@font-face {
+	font-family: 'Circular Std';
+	src: url('../../assets/fonts/circular-std.woff') format('woff');
+}
 
+ion-slides {
+	height: 80vh;
+}
+
+
+.hidden-selector {
+	display: none;
+}
+
+.logo {
+	position: fixed;
+	top: 50px;
+	background: url('../../assets/imgs/logo.svg');
+	height: 32px;
+	width: 24px;
+	align-self: center;
+}
+
+::ng-deep {
+  ion-slide {
+    > div {
+      max-width: 100vw;
+      position: relative;
+      left: -159px;
+    }
+  }
+
+	.swiper-pagination.swiper-pagination-bullets {
+		position: fixed !important;
+		bottom: 80px;
+		left: 20vh;
+		width: 60px;
+	}
+
+	.swiper-pagination-bullet {
+		height: 12px;
+		width: 12px;
+		margin: 4px 8px;
+		background-color: #d8d8d8;
+		&.swiper-pagination-bullet-active {
+			background-color: #000;
+		}
+	}
+
+	.next {
+		position: fixed;
+		bottom: 78px;
+		left: 80vw;
+		background: transparent;
+  }
+
+  .next,
+  .prev {
+    color: #000000;
+    font-family: "Circular Std";
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 20px;
+    text-align: center;
+  }
+}
+
+.wizard {
+	display: flex;
+	flex-direction: column;
+	color: #000;
+	font-family: "Circular Std";
+}
+
+.oval {
+	box-sizing: border-box;
+	height: 251px;
+	width: 251px;
+	border: 1px solid #979797;
+	border-radius: 50%;
+	margin: 50px auto 0;
+
+	&.car {
+		background: url('../../assets/imgs/tesla.png');
+		background-size: 100%;
+	}
+
+	&.route {
+		background: url('../../assets/imgs/route.png');
+		background-size: 100%;
+	}
+}
+
+h1 {
+	font-size: 40px;
+	font-weight: 900;
+	line-height: 40px;
+	text-align: center;
+	padding: 0 50px;
+}
+
+.action-link {
+	height: 20px;
+	width: 112px;
+	font-size: 16px;
+	font-weight: 900;
+	line-height: 20px;
+	text-align: center;
+	margin: 0 auto;
+	text-decoration: underline;
+}
+
+.nav {
+	position: absolute;
+	bottom: 150px;
+	display: flex;
+	align-self: center;
+}
+
+.hidden {
+	display: none;
+}
