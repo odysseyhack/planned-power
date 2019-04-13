@@ -113,17 +113,8 @@ export class HomePage implements AfterViewInit {
         ).filter(Boolean);
 
       forkJoin(promises)
-        .subscribe(() => this.getPowerPromises());
+        .subscribe(() => {});
     }
   }
 
-  private getPowerPromises() {
-    this.powerPromiseService.length().pipe(
-      flatMap(length => this.powerPromiseService.retrieve(length)),
-      catchError(err => {
-        console.error(err);
-        return throwError(err);
-      }),
-    ).subscribe(console.table);
-  }
 }
