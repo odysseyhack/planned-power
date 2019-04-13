@@ -21,7 +21,7 @@ services:
     environment:
       # Example
       # - BC_URL=http://localhost/blockchains/local/api/concord/eth
-      - BC_URL=<change-me>
+      - BC_URL=https://mgmt.blockchain.vmware.com/blockchains/077d11b9-7147-4022-9af8-b937574d3cd5/api/concord/eth
 # Connect to existing docker default network for local development
     # networks:
     #   - default

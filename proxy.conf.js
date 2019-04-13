@@ -10,7 +10,7 @@ const PROXY_CONFIG = {
     "secure": false
   },
   "/vmware": {
-    "target": process.env.BC_URL || "http://localhost/api/concord/eth",
+    "target": process.env.BC_URL || "https://mgmt.blockchain.vmware.com/blockchains/077d11b9-7147-4022-9af8-b937574d3cd5/api/concord/eth",
     "secure": false,
     "changeOrigin": true,
     "pathRewrite": {

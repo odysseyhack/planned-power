@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { from, Observable, ReplaySubject, throwError } from 'rxjs';
-import { catchError, flatMap } from 'rxjs/operators';
+import { catchError, flatMap, map } from 'rxjs/operators';
 import { Web3Service } from './web3.service';
 import { PowerUse } from './power-use';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 
 const abi = require('../../../assets/contracts/PowerPromise.json');
 declare let require: any;
@@ -12,23 +13,24 @@ declare let require: any;
 })
 export class PowerPromiseService {
 
-  private powerPromise = new ReplaySubject<any>();
+  private powerPromiseContract = new ReplaySubject<any>();
 
   constructor(private web3Service: Web3Service) {
-    this.init();
+    this.web3Service.initialized
+      .subscribe(() => this.init());
   }
 
-  private async init(): Promise<void> {
+  async init(): Promise<void> {
     const contract = await this.web3Service.artifactsToContract(abi);
     const deployed = await contract.deployed();
-    this.powerPromise.next(deployed);
-    this.powerPromise.complete();
+    this.powerPromiseContract.next(deployed);
+    this.powerPromiseContract.complete();
   }
 
   promise(
     promise: PowerUse
   ): Observable<any> {
-    return this.powerPromise.pipe(
+    return this.powerPromiseContract.pipe(
       flatMap(contract => from(
         contract.promise(
           promise.region,
@@ -40,16 +42,37 @@ export class PowerPromiseService {
       )),
       catchError(err => {
         console.error(err);
-        return throwError(err)
+        return throwError(err);
       }),
     );
   }
 
-  retrieve(): Observable<PowerUse[]> {
-    return this.powerPromise.pipe(
+  length(): Observable<any> {
+    return this.powerPromiseContract.pipe(
       flatMap(contract => from(
-        contract.retrieve(this.web3Service.from())
-      )),
+        contract.getLength(this.web3Service.from())
+        ),
+      ));
+  }
+
+  retrieve(length: number): Observable<any> {
+    return this.powerPromiseContract.pipe(
+      flatMap(contract => {
+          const usages = [];
+          for (let i = 0; i < length; i++) {
+            usages.push(contract.getPowerPromise(i));
+          }
+          return forkJoin(usages)
+            .pipe(
+              map(results => results.map((result) => ({
+                ...result,
+                5: result[5].toNumber(),
+                6: result[6].toNumber(),
+                7: result[7].toNumber()
+              })))
+            );
+        }
+      )
     );
   }
 

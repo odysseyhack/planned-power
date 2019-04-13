@@ -1,19 +1,24 @@
-import {Component} from '@angular/core';
-import {catchError, flatMap} from 'rxjs/operators';
-import {PowerPromiseService} from '../core/blockchain/power-promise.service';
-import {throwError} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { catchError, flatMap } from 'rxjs/operators';
+import { PowerPromiseService } from '../core/blockchain/power-promise.service';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  styleUrls: [ 'home.page.scss' ],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   constructor(private powerPromiseService: PowerPromiseService) {
   }
 
-  onClick(): void {
+  ngOnInit() {
+
+  }
+
+  async sendAndRetrieve() {
+
     this.powerPromiseService.promise({
       region: 'Beijum',
       startday: '01-01-1010',
@@ -24,12 +29,21 @@ export class HomePage {
       minimalcapacity: 20,
       begincapacity: 80
     }).pipe(
-      flatMap(() => this.powerPromiseService.retrieve()),
+      flatMap(() => this.powerPromiseService.length()),
+      flatMap(length => this.powerPromiseService.retrieve(length)),
       catchError(err => {
         console.error(err);
-        return throwError(err)
+        return throwError(err);
       }),
-    ).subscribe(console.log);
+    ).subscribe(console.table);
+  }
+
+  async retrieve() {
+    this.powerPromiseService.length()
+      .pipe(
+        flatMap(() => this.powerPromiseService.length()),
+        flatMap(length => this.powerPromiseService.retrieve(length))
+      ).subscribe(console.table);
   }
 
 }
