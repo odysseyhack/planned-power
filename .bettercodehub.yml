@@ -2,3 +2,5 @@ exclude:
   - /server/.*         # third-party code
   - .*/.*\.conf\.js    # configuration
   - .*/.*config\.js    # configuration
+
+component_depth: 3
