@@ -1,91 +1,88 @@
 @font-face {
-	font-family: 'Circular Std';
-	src: url('../../assets/fonts/circular-std.woff') format('woff');
+  font-family: 'Circular Std';
+  src: url('../../assets/fonts/circular-std.woff') format('woff');
 }
 
 ion-slides {
-  height: 80vh;
+  height: calc(80vh - 50px);
+
   &.hide {
     display: none;
   }
 }
 
-.hidden-selector {
-	display: none;
+.hidden-selector,
+.hidden {
+  display: none;
 }
 
+
 .logo {
-	position: fixed;
-	top: 50px;
-	background: url('../../assets/imgs/logo.svg');
-	height: 32px;
-	width: 24px;
-	align-self: center;
+  padding-top: 50px;
+
+  img {
+    height: 32px;
+    width: 24px;
+  }
+
+  text-align: center;
+  width: 100%;
 }
 
 ::ng-deep {
-	ion-slide {
-		> div {
-			max-width: 100vw;
-			position: relative;
-			left: -563px;
-		}
-	}
 
-	.swiper-pagination.swiper-pagination-bullets {
-		position: fixed !important;
-		bottom: 80px;
-		left: 35vw;
-		width: 110px;
-	}
+  .swiper-pagination-bullet {
+    height: 12px;
+    width: 12px;
+    margin: 4px 8px;
+    background-color: #d8d8d8;
 
-	.swiper-pagination-bullet {
-		height: 12px;
-		width: 12px;
-		margin: 4px 8px;
-		background-color: #d8d8d8;
-		&.swiper-pagination-bullet-active {
-			background-color: #000;
-		}
-	}
-
-	.next {
-		position: fixed;
-		bottom: 78px;
-		left: 80vw;
-		background: transparent;
-	}
-
-	.next,
-	.prev {
-		color: #000000;
-		font-family: "Circular Std";
-		font-size: 16px;
-		font-weight: 900;
-		line-height: 20px;
-		text-align: center;
-	}
-
-	.weekday-selector {
-		width: 80vw;
-		padding-bottom: 5px;
-		span {
-			border-radius: 50%;
-			font-size: 15px;
-			width: 28px;
-			height: 28px;
-			line-height: 28px;
-			display: inline-block;
-			background: #bebebe;
-			text-align: center;
-			margin: 0 7px;
-			&.selected {
-				color: #fff;
-				background: #007aff;
-			}
-		}
-	}
+    &.swiper-pagination-bullet-active {
+      background-color: #000;
+    }
+  }
 }
+
+.next {
+  position: fixed;
+  bottom: 78px;
+  left: 80vw;
+  background: transparent;
+}
+
+.next,
+.prev {
+  color: #000000;
+  font-family: "Circular Std";
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 20px;
+  text-align: center;
+}
+
+
+.weekday-selector {
+  width: 80vw;
+  padding-bottom: 5px;
+
+  span {
+    border-radius: 50%;
+    font-size: 15px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+    background: #bebebe;
+    text-align: center;
+    margin: 0 7px;
+
+    &.selected {
+      color: #fff;
+      background: #007aff;
+    }
+  }
+}
+
 
 .ionRangeHour {
 	> ion-label {
@@ -100,11 +97,8 @@ ion-slides {
 }
 
 .wizard {
-	display: flex;
-	flex-direction: column;
 	color: #000;
 	font-family: "Circular Std";
-	width: 100vw;
 }
 
 .oval {
@@ -143,13 +137,6 @@ i {
 	}
 }
 
-h1 {
-	font-size: 40px;
-	font-weight: 900;
-	line-height: 40px;
-	text-align: center;
-	padding: 0 50px;
-}
 
 .action-link {
 	height: 20px;
@@ -166,17 +153,6 @@ ion-item {
   margin-bottom: 25px;
 }
 
-.nav {
-	position: absolute;
-	bottom: 150px;
-	display: flex;
-	align-self: center;
-}
-
-.hidden {
-	display: none;
-}
-
 .wizard-completed {
   opacity: 0;
   animation: fade-in 300ms ease-in 1 forwards;
@@ -186,9 +162,8 @@ ion-item {
 		animation-duration: 300ms;
 
 		&.car {
-			bottom: 420px;
+      top: 120px;
 			width: 341px;
-			left: 18px;
 
 			&.closed {
         animation:car 420ms ease-out 1 forwards;
@@ -196,14 +171,14 @@ ion-item {
 		}
 
 		&.card {
-			bottom: 0px;
+      bottom: 0;
 			&.closed {
         animation:card 600ms ease-out 1 forwards;
 			}
     }
 
     &.map {
-      bottom: -595px;
+      top: 100vh;
       &.show {
         animation:map 450ms ease-out 1 forwards;
       }
@@ -213,26 +188,26 @@ ion-item {
 
 @keyframes car {
 	from {
-    bottom: 420px;
+    top: 120px;
 	}
 	to {
-		bottom: -275px;
+    top: 100vh;
 	}
 }
 @keyframes card {
 	from {
-    bottom: 0px;
+    bottom: 0;
 	}
 	to {
-		bottom: -295px;
-	}
+    bottom: -295/812 * 100%;
+  }
 }
 @keyframes map {
 	from {
-    bottom: -595px;
+    top: 100vh;
 	}
 	to {
-		bottom: 105px;
+    top: 0;
 	}
 }
 @keyframes fade-in {
